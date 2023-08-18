@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HI weather</title>
+<link rel="stylesheet" href="style.css">
+
+
+</head>
+<body >
+    
+
+<div class="card">
+    <div class="search">
+        <input type="text" placeholder="enter city name" spellcheck="false">
+        <button><img src="C:\Users\91630\Documents\images/search.png"></button>
+    </div>
+    <div class="weather">
+        <img src="C:\Users\91630\Documents\images/rain.png" class="weather-icon">
+        <h1 class ="temp">22 c</h1>
+        <h2 class="city">New York</h2>
+        <div class="details">
+            <div class="col">
+                <img src="C:\Users\91630\Documents\images/humidity.png">
+                <div>
+                    <p class="humidity">50%</p>
+                    <p>humidity</p>
+                </div>
+            </div>
+             
+            <div class="col">
+                <img src="C:\Users\91630\Documents\images/wind.png">
+                <div>
+                    <p class="wind">50%</p>
+                    <p>humidity</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+  const apikey="a284b562382974701125cca7d064ccd3";
+  const apiUrl="https://api.openweathermap.org/data/2.5/weather?units=metric&q=";/*url from open weather appp in add url remove api id and q city,later add city at end  */
+  const c= document.querySelector(".search input");/*inside search input*/
+  const btn= document.querySelector(".search button");/* onclick butn send c info to func*/
+   const icon=document.querySelector(".weather-icon")
+  async function checkWeather(city){
+    const response=await fetch(apiUrl+city+`&appid=${apikey}`);/* at end of url add key by back tick*/
+    var data=await response.json();/* this will have all data about city in json format next select the class name and update by innerhtml*/
+    console.log(data);
+  
+  
+  document.querySelector(".city").innerHTML=data.name;
+  document.querySelector(".temp").innerHTML=Math.round(data.main.temp)+"°C";
+  document.querySelector(".humidity").innerHTML=data.main.humidity+"%";
+  document.querySelector(".wind").innerHTML=data.wind.speed+"kmph";
+
+
+  }/* add name as seen in console of inspect*/
+  btn.addEventListener("click",()=>{
+    checkWeather(c.value);
+  })
+  /* when we want to check weather enter city name that come from input
+  add event click,arrow fun,cw has city info in input field so retieve and add in url
+  rremove city name from url and pass city in checkweather func coming from input by query selector*/
+</script>
+
+</body>
+</html>
+
+
+
+/*
+open weather map
+create acc
+verify email
+api keys--use that key code later
+next open api in new tab and click current weather data api doc
+next scroll down to see built in api req by city name and copy and paste in url 
+enter city germany.id as apikey id on run it take time for id to activate later json format o/p displayed but temp not in deg celsius 
+so in api go to units -standard metric imperial so add in url&units=metric
+
+now in body btm add api key
+*/
